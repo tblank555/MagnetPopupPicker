@@ -120,43 +120,13 @@
     CGRect frame = CGRectMake(position.x, position.y, self.frame.size.width, self.frame.size.height);
     self.frame = frame;
     self.alpha = 0;
-    [[self __topViewController].view addSubview:self];
+    [self.superview addSubview:self];
     [self setEvents];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationDelay:0.0];
     self.alpha = 1;
     [UIView commitAnimations];
-}
-
-- (UIViewController *)__topViewController
-{
-    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UIViewController *topMostController;
-    
-    while (viewController != topMostController)
-    {
-        if ([viewController respondsToSelector:@selector(topViewController)])
-        {
-            UINavigationController *navController = (UINavigationController *)viewController;
-            topMostController = navController.topViewController;
-        }
-        else if ([viewController respondsToSelector:@selector(selectedViewController)])
-        {
-            UITabBarController *tabBarController = (UITabBarController *)viewController;
-            topMostController = tabBarController.selectedViewController;
-        }
-        else if (viewController.presentedViewController)
-        {
-            topMostController = viewController.presentedViewController;
-        }
-        else
-        {
-            topMostController = viewController;
-        }
-    }
-    
-    return topMostController;
 }
 
 @end
