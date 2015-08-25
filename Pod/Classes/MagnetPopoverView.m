@@ -128,7 +128,7 @@
     CGPoint position = [self findPositionWithTarget];
     CGRect frame = CGRectMake(position.x, position.y, self.frame.size.width, self.frame.size.height);
     self.frame = [self convertRect:frame
-                          fromView:self.superview];
+                          fromView:self.window.rootViewController.view];
     self.alpha = 0;
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self];
     [self setEvents];
