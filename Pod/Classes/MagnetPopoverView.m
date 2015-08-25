@@ -116,18 +116,19 @@
     }];
 }
 
-- (BOOL)isVisible {
+- (BOOL)isVisible
+{
     return self.superview != nil;
 }
 
-
-
-- (void)showPopover:(CGRect)targetRect {
+- (void)showPopover:(CGRect)targetRect
+{
     [self resetSize];
     self.targetRect = targetRect;
     CGPoint position = [self findPositionWithTarget];
     CGRect frame = CGRectMake(position.x, position.y, self.frame.size.width, self.frame.size.height);
-    self.frame = frame;
+    self.frame = [self convertRect:frame
+                          fromView:self.superview];
     self.alpha = 0;
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self];
     [self setEvents];
