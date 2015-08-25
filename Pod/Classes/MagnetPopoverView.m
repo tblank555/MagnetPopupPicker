@@ -112,15 +112,15 @@
     return self.superview != nil;
 }
 
-- (void)showPopover:(CGRect)targetRect
+- (void)showPopoverFromButton:(UIButton *)button
 {
     [self resetSize];
-    self.targetRect = targetRect;
+    self.targetRect = button.frame;
     CGPoint position = [self findPositionWithTarget];
     CGRect frame = CGRectMake(position.x, position.y, self.frame.size.width, self.frame.size.height);
     self.frame = frame;
     self.alpha = 0;
-    [self.superview addSubview:self];
+    [button.superview addSubview:self];
     [self setEvents];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
