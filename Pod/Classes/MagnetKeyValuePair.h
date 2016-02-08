@@ -11,11 +11,9 @@
 @interface MagnetKeyValuePair : NSObject
 
 @property (nonatomic, readonly) NSString *key;
-
 @property (nonatomic, readonly) id value;
 
-+(MagnetKeyValuePair *)keyValuePairWithKeyAndValue:(NSString *)pkey value:(id)value;
-
--(id)initWithKeyValue:(NSString *)pKey value:(id) nValue;
++ (MagnetKeyValuePair *)keyValuePairWithKeyAndValue:(NSString *)pkey value:(id)value;
+- (instancetype)initWithKeyValue:(NSString *)pKey value:(id)nValue;
 
 @end

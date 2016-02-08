@@ -10,31 +10,25 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@protocol MagnetPickerViewControllerDelegate <NSObject>
-
--(void)pickerViewController:(id)sender submitClicked:(MagnetKeyValuePair *)selected;
-
--(void)pickerViewControllerCancelClicked:(id)sender;
-
-@end
-
+@protocol MagnetPickerViewControllerDelegate;
 
 @interface MagnetPickerViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (readonly) MagnetKeyValuePair *keyNames;
-
-@property NSArray *optionList;
-
-@property NSArray *filteredOptions;
-
+@property (nonatomic, strong, readonly) MagnetKeyValuePair *keyNames;
+@property (nonatomic, strong) NSArray *optionList;
+@property (nonatomic, strong) NSArray *filteredOptions;
 @property (nonatomic, weak) id<MagnetPickerViewControllerDelegate> delegate;
 
--(void)selectFirstElement;
+- (void)selectFirstElement;
+- (void)setOptionList:(NSArray *)list keyNames:(MagnetKeyValuePair *)names;
+- (void)clearValue;
+- (void)resetSearch;
 
--(void)setOptionList:(NSArray *)list keyNames:(MagnetKeyValuePair *)names;
+@end
 
--(void)clearValue;
+@protocol MagnetPickerViewControllerDelegate <NSObject>
 
--(void)resetSearch;
+- (void)pickerViewController:(MagnetPickerViewController *)pickerViewController submitClicked:(MagnetKeyValuePair *)selected;
+- (void)pickerViewControllerCancelClicked:(MagnetPickerViewController *)pickerViewController;
 
 @end

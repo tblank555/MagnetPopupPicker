@@ -23,7 +23,6 @@
 		0F75DCB1C1B638E613FDDFFD /* KWMessageTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AFEDAFD08656825886AF3B /* KWMessageTracker.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0F9FF537E3A820DD387A3D7C /* KWConformToProtocolMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBF8225846777D5F834C24D /* KWConformToProtocolMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		10628DFFFEB132326411C4F6 /* NSMethodSignature+KiwiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2DABBDB209267047ECB5B2 /* NSMethodSignature+KiwiAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		11395EB4DD5A3DCBA4023ACA /* MagnetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5CAC59B161620DB27EF67F /* MagnetViewController.h */; };
 		12B7EFEC6E5CB96CB1A73E78 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BEC739A405EDFE9634DEB5 /* FBSnapshotTestCase.m */; };
 		13019D839198CA205E07C2DC /* KWProbePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = D48D2B04B394E65DAD859340 /* KWProbePoller.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		13C6C09C59E3CAA5BA3198ED /* KWBeEmptyMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E00E3758DEB101EB500C368 /* KWBeEmptyMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -127,7 +126,6 @@
 		912263551F754747903EDE77 /* KWUserDefinedMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D467C7AF75366182B29C78F /* KWUserDefinedMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		91EF35C384A7D5DC694C2E8D /* KWHaveValueMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BF19EAD5F5FAC07CD8222718 /* KWHaveValueMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		924186AFB48F4498A6A58539 /* KWExampleSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8271D1FAB1305A8A2943E68 /* KWExampleSuite.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		946DC9812FD76DC31EA4297E /* MagnetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9655EA0B8591FA824EA55FA7 /* MagnetViewController.m */; };
 		947FB24CE4EC332CCC036603 /* KWContextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9D22481951A66E75CFCEDD /* KWContextNode.h */; };
 		963CE3D048C7D8FCB89E93B5 /* KWItNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 88554D5ABC143D5254A13B97 /* KWItNode.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		9724B376319C8EB3ED7659AB /* KWUserDefinedMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 34183562C08A6515F583454C /* KWUserDefinedMatcher.h */; };
@@ -135,7 +133,6 @@
 		99EAD17736179C04CE092363 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3830AFC4C696942921B631EF /* Foundation.framework */; };
 		9A8D1C98C6A38960B8E65062 /* KWBeKindOfClassMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 41C54431D67611B1FAC41875 /* KWBeKindOfClassMatcher.h */; };
 		9C3F8204EAAF5ACC9B9B4053 /* KWStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBE12F2D07EB93652117150 /* KWStub.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9CE394BD9741D7F5A51FBC25 /* MagnetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9655EA0B8591FA824EA55FA7 /* MagnetViewController.m */; };
 		9F5B950F5A643FD3E20C28BD /* MagnetKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 34A1FF6B9444C3B3192293AE /* MagnetKeyValuePair.h */; };
 		A04C1A334ACA2AE6EDCDA69B /* KWBeEmptyMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = C03CB1A01542A4B12E66B899 /* KWBeEmptyMatcher.h */; };
 		A12EE79AFDA877EE9C2FA13F /* Pods-MagnetPopupPicker-MagnetPopupPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E089FC80616E977F35B1F00 /* Pods-MagnetPopupPicker-MagnetPopupPicker-dummy.m */; };
@@ -157,7 +154,6 @@
 		AACAE1CFA77B0BDC585437FB /* KWConformToProtocolMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 720E77F9F0AE9A6EA2001550 /* KWConformToProtocolMatcher.h */; };
 		AAE13610559020E1B069342D /* Pods-Tests-MagnetPopupPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B34919C60CFC00973DBB8F5 /* Pods-Tests-MagnetPopupPicker-dummy.m */; };
 		AB4919B152B00BBAF4A66898 /* KWBlockRaiseMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EB336C415CAD638CDA5E7C /* KWBlockRaiseMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		AC50EB4BE89FACF26FED14A0 /* MagnetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5CAC59B161620DB27EF67F /* MagnetViewController.h */; };
 		ADA858E216C860EC4873B32B /* KWMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F16D86E943FA38E03E8173 /* KWMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AE1DD023BBBDB4C8965B7127 /* KWChangeMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F695130A230DF3A4372 /* KWChangeMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AFBA00FBE4AD4E8D2433B3E8 /* KWAllTestsSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478802DEC8DBF70F84F0C7F /* KWAllTestsSuite.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -357,7 +353,6 @@
 		4766DD059E56081F03BB84D7 /* Pods-Tests-MagnetPopupPicker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-MagnetPopupPicker.xcconfig"; path = "../Pods-Tests-MagnetPopupPicker/Pods-Tests-MagnetPopupPicker.xcconfig"; sourceTree = "<group>"; };
 		478836076DB24CB4915AC16C /* KWLetNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KWLetNode.m; path = Classes/Nodes/KWLetNode.m; sourceTree = "<group>"; };
 		494400EE8F6B7EE0A4AAF28B /* Pods-Tests-Kiwi-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests-Kiwi-Private.xcconfig"; sourceTree = "<group>"; };
-		4A5CAC59B161620DB27EF67F /* MagnetViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MagnetViewController.h; path = Pod/Classes/MagnetViewController.h; sourceTree = "<group>"; };
 		4A8145E02763DE17D9247C51 /* KWAny.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KWAny.m; path = Classes/Core/KWAny.m; sourceTree = "<group>"; };
 		4AC93F6CE68E0AFE5F714B08 /* KWHaveMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KWHaveMatcher.m; path = Classes/Matchers/KWHaveMatcher.m; sourceTree = "<group>"; };
 		4D30386455DF87D88EFC6956 /* KiwiConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KiwiConfiguration.h; path = Classes/Core/KiwiConfiguration.h; sourceTree = "<group>"; };
@@ -421,7 +416,6 @@
 		8E6E8DDFCC666F03DB112C03 /* MagnetPickerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MagnetPickerViewController.h; path = Pod/Classes/MagnetPickerViewController.h; sourceTree = "<group>"; };
 		8FE4CD0F868BBD54EBBC640E /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
 		955A3F280DE66DC29B8FC6C3 /* KWDeviceInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KWDeviceInfo.m; path = Classes/Core/KWDeviceInfo.m; sourceTree = "<group>"; };
-		9655EA0B8591FA824EA55FA7 /* MagnetViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MagnetViewController.m; path = Pod/Classes/MagnetViewController.m; sourceTree = "<group>"; };
 		97EBD7446BC7A4D41F7E460D /* Pods-Tests-FBSnapshotTestCase.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests-FBSnapshotTestCase.xcconfig"; sourceTree = "<group>"; };
 		9AEBAFDBA87838DBB747328C /* KWReporting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KWReporting.h; path = Classes/Core/KWReporting.h; sourceTree = "<group>"; };
 		9AF36C30B4CC7ABC71D61CB3 /* KWObjCUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KWObjCUtilities.m; path = Classes/Core/KWObjCUtilities.m; sourceTree = "<group>"; };
@@ -609,8 +603,6 @@
 				7AA95D5A6B65A6945F62274B /* MagnetPopoverView.m */,
 				D1BA5F2426FBD6635EC9E79A /* MagnetPopupPickerButton.h */,
 				1BFF2E09406D2F3FDFF3D240 /* MagnetPopupPickerButton.m */,
-				4A5CAC59B161620DB27EF67F /* MagnetViewController.h */,
-				9655EA0B8591FA824EA55FA7 /* MagnetViewController.m */,
 				D8EF7FA0AC1E8A11F58F9B56 /* Support Files */,
 			);
 			name = MagnetPopupPicker;
@@ -945,7 +937,6 @@
 				37BDE6B0B363503E59E28979 /* MagnetPickerViewController.h in Headers */,
 				B6BAE398F397958843DA8809 /* MagnetPopoverView.h in Headers */,
 				EABB830630246938D8BB1007 /* MagnetPopupPickerButton.h in Headers */,
-				11395EB4DD5A3DCBA4023ACA /* MagnetViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,7 +959,6 @@
 				B39531140D02CE5697E4125F /* MagnetPickerViewController.h in Headers */,
 				4D76407C3B8ACEE72A124B6F /* MagnetPopoverView.h in Headers */,
 				B2CBAA2D8171D747489CDD6C /* MagnetPopupPickerButton.h in Headers */,
-				AC50EB4BE89FACF26FED14A0 /* MagnetViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1364,7 +1354,6 @@
 				C4808CD20D99FB8B491B0663 /* MagnetPickerViewController.m in Sources */,
 				01EA19EE3F445CED3ED8E52B /* MagnetPopoverView.m in Sources */,
 				A4E1C3D683B6594607B51A1F /* MagnetPopupPickerButton.m in Sources */,
-				9CE394BD9741D7F5A51FBC25 /* MagnetViewController.m in Sources */,
 				A12EE79AFDA877EE9C2FA13F /* Pods-MagnetPopupPicker-MagnetPopupPicker-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1377,7 +1366,6 @@
 				7F7E5FA44394CDFF153B064F /* MagnetPickerViewController.m in Sources */,
 				BD8B751A7C0769040ECA1735 /* MagnetPopoverView.m in Sources */,
 				A707BB9135774814779F30E9 /* MagnetPopupPickerButton.m in Sources */,
-				946DC9812FD76DC31EA4297E /* MagnetViewController.m in Sources */,
 				AAE13610559020E1B069342D /* Pods-Tests-MagnetPopupPicker-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
