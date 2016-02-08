@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+static CGFloat const MagnetPickerViewControllerMarginSize = 10.0;
+static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
+
 @interface MagnetPickerViewController ()
 
 @property UIPickerView *pickerView;
@@ -26,25 +29,40 @@
 {
     [super viewDidLoad];
     
-    UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"X"]];
-    cancelButton.frame = CGRectMake(10, 10, 30, 30);
-    cancelButton.momentary = YES;
-    [cancelButton addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:cancelButton];
+    if (self.showsCancelButton)
+    {
+        UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"X"]];
+        cancelButton.frame = CGRectMake(MagnetPickerViewControllerMarginSize,
+                                        MagnetPickerViewControllerMarginSize,
+                                        MagnetPickerViewControllerCancelButtonWidth,
+                                        30.0);
+        cancelButton.momentary = YES;
+        [cancelButton addTarget:self
+                         action:@selector(cancelClicked)
+               forControlEvents:UIControlEventValueChanged];
+        [self.view addSubview:cancelButton];
+    }
     
-    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(48, 10, 175, 30)];
+    CGFloat searchFieldXPosition = (self.showsCancelButton) ? MagnetPickerViewControllerMarginSize + MagnetPickerViewControllerCancelButtonWidth + 8.0 : MagnetPickerViewControllerMarginSize;
+    CGFloat searchFieldWidth = (self.showsCancelButton) ? 175.0 : 175.0 + MagnetPickerViewControllerCancelButtonWidth + 8.0;
+    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(searchFieldXPosition,
+                                                                     10.0,
+                                                                     searchFieldWidth,
+                                                                     30.0)];
     self.searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.searchField.borderStyle = UITextBorderStyleRoundedRect;
-    self.searchField.placeholder = @"Search";
+    self.searchField.placeholder = NSLocalizedString(@"Search", nil);
     self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
-    [self.searchField addTarget:self action:@selector(searchValueChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.searchField addTarget:self
+                         action:@selector(searchValueChanged)
+               forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:self.searchField];
     [self.searchField reloadInputViews];
     
     UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"OK"]];
     submitButton.momentary = YES;
     [submitButton addTarget:self action:@selector(submitClicked) forControlEvents:UIControlEventValueChanged];
-    submitButton.frame = CGRectMake(230,  10, 60, 30);
+    submitButton.frame = CGRectMake(230, 10, 60, 30);
     [self.view addSubview:submitButton];
     
     [self selectFirstElement];

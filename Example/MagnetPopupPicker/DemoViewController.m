@@ -45,6 +45,7 @@
     self.button = [[MagnetPopupPickerButton alloc] initWithFrame:CGRectMake(170, 50, 150, 30)];
     self.button.backgroundColor = [UIColor darkGrayColor];
     self.button.popoverColor = [UIColor darkGrayColor];
+    self.button.pickerController.showsCancelButton = YES;
     [self.button setTitle:@"Select" forState:UIControlStateNormal];
     
     NSArray *list = [NSArray arrayWithObjects:[MagnetKeyValuePair keyValuePairWithKeyAndValue:@"test1" value:@"Q test"],

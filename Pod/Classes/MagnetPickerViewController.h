@@ -17,6 +17,10 @@
 @property (nonatomic, strong, readonly) MagnetKeyValuePair *keyNames;
 @property (nonatomic, strong) NSArray *optionList;
 @property (nonatomic, strong) NSArray *filteredOptions;
+
+/** Boolean value indicating whether to show the cancel button. Defaults to NO. */
+@property (nonatomic, assign) BOOL showsCancelButton;
+
 @property (nonatomic, weak) id<MagnetPickerViewControllerDelegate> delegate;
 
 - (void)selectFirstElement;
