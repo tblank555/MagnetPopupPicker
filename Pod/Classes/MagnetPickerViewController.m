@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 
 static CGFloat const MagnetPickerViewControllerMarginSize = 10.0;
-static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
+static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 60.0;
 static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 
 @interface MagnetPickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -70,12 +70,12 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 {
     [super viewDidLoad];
     
-    CGFloat searchFieldWidth = 175.0;
+    CGFloat searchFieldWidth = 145.0;
     CGFloat searchFieldXPosition = MagnetPickerViewControllerMarginSize + MagnetPickerViewControllerCancelButtonWidth + 8.0;
     
     if (self.showsCancelButton)
     {
-        UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"X"]];
+        UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:@[ NSLocalizedString(@"Clear", nil) ]];
         cancelButton.frame = CGRectMake(MagnetPickerViewControllerMarginSize,
                                         MagnetPickerViewControllerMarginSize,
                                         MagnetPickerViewControllerCancelButtonWidth,
@@ -94,7 +94,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     
     if (self.showsOKButton)
     {
-        UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"OK"]];
+        UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:@[ NSLocalizedString(@"OK", nil) ]];
         submitButton.momentary = YES;
         [submitButton addTarget:self
                          action:@selector(submitClicked)
@@ -176,6 +176,12 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     if (self.filteredOptions.count > 0)
     {
         self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
+        
+        if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
+        {
+            [self.delegate pickerViewController:self
+                                 didChangeValue:self.selectedPair];
+        }
     }
 }
 
