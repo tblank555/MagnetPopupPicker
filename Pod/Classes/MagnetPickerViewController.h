@@ -20,13 +20,13 @@
 
 /** 
  Boolean value indicating whether to show the cancel button. 
- @discussion Defaults to NO.
+ @discussion Defaults to YES.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 
 /** 
  Boolean value indicating whether to show the OK button.
- @discussion Defaults to NO. If this value is set to YES, the `pickerViewController:submitClicked:` method will be called on the delegate when the OK button is tapped. If it is set to NO, the delegate may still respond to the user's changes by implementing the `pickerViewController:didChangeValue:` method.
+ @discussion Defaults to YES. If this value is set to YES, the `pickerViewController:submitClicked:` method will be called on the delegate when the OK button is tapped. If it is set to NO, the delegate may still respond to the user's changes by implementing the `pickerViewController:didChangeValue:` method.
  */
 @property (nonatomic, assign) BOOL showsOKButton;
 

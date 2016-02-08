@@ -16,7 +16,7 @@ static CGFloat const MagnetPickerViewControllerMarginSize = 10.0;
 static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
 static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 
-@interface MagnetPickerViewController ()
+@interface MagnetPickerViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, weak) UITextField *searchField;
 @property (nonatomic, weak) UIPickerView *pickerView;
@@ -25,6 +25,46 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 @end
 
 @implementation MagnetPickerViewController
+
+#pragma mark - Initializers
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self __initialize];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self __initialize];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        [self __initialize];
+    }
+    return self;
+}
+
+- (void)__initialize
+{
+    _showsCancelButton = YES;
+    _showsOKButton = YES;
+}
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad
 {
@@ -86,18 +126,12 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     [self.searchField reloadInputViews];
     
     [self selectFirstElement];
-    [self loadPicker];
+    [self __loadPicker];
 }
 
-- (void)selectFirstElement
-{
-    if (self.filteredOptions.count > 0)
-    {
-        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
-    }
-}
+#pragma mark - Private
 
-- (void)loadPicker
+- (void)__loadPicker
 {
     UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 35, 300, 200)];
     pickerView.delegate = self;
@@ -106,6 +140,44 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     self.pickerView = pickerView;
 }
 
+- (void)submitClicked
+{
+    if (!self.selectedPair)
+        [self selectFirstElement];
+    
+    if ([self.delegate respondsToSelector:@selector(pickerViewController:submitClicked:)])
+    {
+        [self.delegate pickerViewController:self
+                              submitClicked:self.selectedPair];
+    }
+}
+
+- (void)cancelClicked
+{
+    self.selectedPair = nil;
+    if ([self.delegate respondsToSelector:@selector(pickerViewControllerCancelClicked:)])
+        [self.delegate pickerViewControllerCancelClicked:self];
+}
+
+- (void)searchValueChanged
+{
+    self.filteredOptions = [self.optionList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MagnetKeyValuePair *evaluatedObject, NSDictionary *bindings) {
+        NSRange range = [[evaluatedObject valueForKey:self.keyNames.value] rangeOfString:self.searchField.text options:NSCaseInsensitiveSearch];
+        return range.location == 0 || self.searchField.text.length < 1;
+    }]];
+    [self selectFirstElement];
+    [self.pickerView reloadAllComponents];
+}
+
+#pragma mark - Public
+
+- (void)selectFirstElement
+{
+    if (self.filteredOptions.count > 0)
+    {
+        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
+    }
+}
 
 - (void)setOptionList:(NSArray *)list keyNames:(MagnetKeyValuePair *)names
 {
@@ -132,30 +204,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
                       animated:NO];
 }
 
-- (void)submitClicked
-{
-    if (!self.selectedPair)
-        [self selectFirstElement];
-    
-    [self.delegate pickerViewController:self
-                          submitClicked:self.selectedPair];
-}
-
-- (void)cancelClicked
-{
-    self.selectedPair = nil;
-    [self.delegate pickerViewControllerCancelClicked:self];
-}
-
-- (void)searchValueChanged
-{
-    self.filteredOptions = [self.optionList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MagnetKeyValuePair *evaluatedObject, NSDictionary *bindings) {
-        NSRange range = [[evaluatedObject valueForKey:self.keyNames.value] rangeOfString:self.searchField.text options:NSCaseInsensitiveSearch];
-        return range.location == 0 || self.searchField.text.length < 1;
-    }]];
-    [self selectFirstElement];
-    [self.pickerView reloadAllComponents];
-}
+#pragma mark - UIPickerViewDelegate & UIPickerViewDataSource
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
@@ -169,7 +218,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [NSString stringWithFormat:@"%@", [[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
+    return [NSString stringWithFormat:@"%@", [self.filteredOptions[row] valueForKey:self.keyNames.value]];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
