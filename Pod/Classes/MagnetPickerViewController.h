@@ -18,8 +18,17 @@
 @property (nonatomic, strong) NSArray *optionList;
 @property (nonatomic, strong) NSArray *filteredOptions;
 
-/** Boolean value indicating whether to show the cancel button. Defaults to NO. */
+/** 
+ Boolean value indicating whether to show the cancel button. 
+ @discussion Defaults to NO.
+ */
 @property (nonatomic, assign) BOOL showsCancelButton;
+
+/** 
+ Boolean value indicating whether to show the OK button.
+ @discussion Defaults to NO. If this value is set to YES, the `pickerViewController:submitClicked:` method will be called on the delegate when the OK button is tapped. If it is set to NO, the delegate may still respond to the user's changes by implementing the `pickerViewController:didChangeValue:` method.
+ */
+@property (nonatomic, assign) BOOL showsOKButton;
 
 @property (nonatomic, weak) id<MagnetPickerViewControllerDelegate> delegate;
 
@@ -31,7 +40,9 @@
 @end
 
 @protocol MagnetPickerViewControllerDelegate <NSObject>
+@optional
 
+- (void)pickerViewController:(MagnetPickerViewController *)pickerViewController didChangeValue:(MagnetKeyValuePair *)newValue;
 - (void)pickerViewController:(MagnetPickerViewController *)pickerViewController submitClicked:(MagnetKeyValuePair *)selected;
 - (void)pickerViewControllerCancelClicked:(MagnetPickerViewController *)pickerViewController;
 

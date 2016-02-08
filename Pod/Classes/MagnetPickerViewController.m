@@ -14,12 +14,13 @@
 
 static CGFloat const MagnetPickerViewControllerMarginSize = 10.0;
 static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
+static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 
 @interface MagnetPickerViewController ()
 
-@property UIPickerView *pickerView;
-@property MagnetKeyValuePair *selectedPair;
-@property UITextField *searchField;
+@property (nonatomic, weak) UITextField *searchField;
+@property (nonatomic, weak) UIPickerView *pickerView;
+@property (nonatomic, strong) MagnetKeyValuePair *selectedPair;
 
 @end
 
@@ -28,6 +29,9 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGFloat searchFieldWidth = 175.0;
+    CGFloat searchFieldXPosition = MagnetPickerViewControllerMarginSize + MagnetPickerViewControllerCancelButtonWidth + 8.0;
     
     if (self.showsCancelButton)
     {
@@ -42,28 +46,44 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
                forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:cancelButton];
     }
+    else
+    {
+        searchFieldXPosition = MagnetPickerViewControllerMarginSize;
+        searchFieldWidth += MagnetPickerViewControllerCancelButtonWidth + 8.0;
+    }
     
-    CGFloat searchFieldXPosition = (self.showsCancelButton) ? MagnetPickerViewControllerMarginSize + MagnetPickerViewControllerCancelButtonWidth + 8.0 : MagnetPickerViewControllerMarginSize;
-    CGFloat searchFieldWidth = (self.showsCancelButton) ? 175.0 : 175.0 + MagnetPickerViewControllerCancelButtonWidth + 8.0;
-    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(searchFieldXPosition,
-                                                                     10.0,
-                                                                     searchFieldWidth,
-                                                                     30.0)];
-    self.searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.searchField.borderStyle = UITextBorderStyleRoundedRect;
-    self.searchField.placeholder = NSLocalizedString(@"Search", nil);
-    self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
-    [self.searchField addTarget:self
-                         action:@selector(searchValueChanged)
-               forControlEvents:UIControlEventEditingChanged];
-    [self.view addSubview:self.searchField];
+    if (self.showsOKButton)
+    {
+        UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"OK"]];
+        submitButton.momentary = YES;
+        [submitButton addTarget:self
+                         action:@selector(submitClicked)
+               forControlEvents:UIControlEventValueChanged];
+        submitButton.frame = CGRectMake(searchFieldXPosition + searchFieldWidth + 7.0,
+                                        MagnetPickerViewControllerMarginSize,
+                                        MagnetPickerViewControllerOKButtonWidth,
+                                        30.0);
+        [self.view addSubview:submitButton];
+    }
+    else
+    {
+        searchFieldWidth += MagnetPickerViewControllerOKButtonWidth + 7.0;
+    }
+    
+    UITextField *searchField = [[UITextField alloc] initWithFrame:CGRectMake(searchFieldXPosition,
+                                                                             MagnetPickerViewControllerMarginSize,
+                                                                             searchFieldWidth,
+                                                                             30.0)];
+    searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    searchField.borderStyle = UITextBorderStyleRoundedRect;
+    searchField.placeholder = NSLocalizedString(@"Search", nil);
+    searchField.autocorrectionType = UITextAutocorrectionTypeNo;
+    [searchField addTarget:self
+                    action:@selector(searchValueChanged)
+          forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:searchField];
+    self.searchField = searchField;
     [self.searchField reloadInputViews];
-    
-    UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"OK"]];
-    submitButton.momentary = YES;
-    [submitButton addTarget:self action:@selector(submitClicked) forControlEvents:UIControlEventValueChanged];
-    submitButton.frame = CGRectMake(230, 10, 60, 30);
-    [self.view addSubview:submitButton];
     
     [self selectFirstElement];
     [self loadPicker];
@@ -79,10 +99,11 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
 
 - (void)loadPicker
 {
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 35, 300, 200)];
-    self.pickerView.delegate = self;
-    self.pickerView.dataSource = self;
-    [self.view addSubview:self.pickerView];
+    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 35, 300, 200)];
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    [self.view addSubview:pickerView];
+    self.pickerView = pickerView;
 }
 
 
@@ -97,7 +118,7 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
 - (void)resetSearch
 {
     self.searchField.text = @"";
-    if(self.keyNames && self.searchField)
+    if (self.keyNames && self.searchField)
         [self searchValueChanged];
 }
 
@@ -106,14 +127,18 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
     self.selectedPair = nil;
     self.searchField.text = @"";
     [self resetSearch];
-    [self.pickerView selectRow:0 inComponent:0 animated:NO];
+    [self.pickerView selectRow:0
+                   inComponent:0
+                      animated:NO];
 }
 
 - (void)submitClicked
 {
-    if(!self.selectedPair)
+    if (!self.selectedPair)
         [self selectFirstElement];
-    [self.delegate pickerViewController:self submitClicked:self.selectedPair];
+    
+    [self.delegate pickerViewController:self
+                          submitClicked:self.selectedPair];
 }
 
 - (void)cancelClicked
@@ -152,6 +177,12 @@ static CGFloat const MagnetPickerViewControllerCancelButtonWidth = 30.0;
     if (row < self.filteredOptions.count)
     {
         self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[row] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
+        
+        if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
+        {
+            [self.delegate pickerViewController:self
+                                 didChangeValue:self.selectedPair];
+        }
     }
 }
 
