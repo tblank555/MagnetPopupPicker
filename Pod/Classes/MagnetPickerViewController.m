@@ -14,7 +14,6 @@
 
 @interface MagnetPickerViewController ()
 
-
 @property UIPickerView *pickerView;
 @property MagnetKeyValuePair *selectedPair;
 @property UITextField *searchField;
@@ -23,21 +22,9 @@
 
 @implementation MagnetPickerViewController
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"X"]];
     cancelButton.frame = CGRectMake(10, 10, 30, 30);
@@ -64,13 +51,15 @@
     [self loadPicker];
 }
 
--(void)selectFirstElement
+- (void)selectFirstElement
 {
-    if(self.filteredOptions.count > 0)
-        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
+    if (self.filteredOptions.count > 0)
+    {
+        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
+    }
 }
 
--(void)loadPicker
+- (void)loadPicker
 {
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 35, 300, 200)];
     self.pickerView.delegate = self;
@@ -79,7 +68,7 @@
 }
 
 
--(void)setOptionList:(NSArray *)list keyNames:(MagnetKeyValuePair *)names
+- (void)setOptionList:(NSArray *)list keyNames:(MagnetKeyValuePair *)names
 {
     self.optionList = list;
     self.filteredOptions = [self.optionList copy];
@@ -87,14 +76,14 @@
     [self.pickerView reloadAllComponents];
 }
 
--(void)resetSearch
+- (void)resetSearch
 {
     self.searchField.text = @"";
     if(self.keyNames && self.searchField)
         [self searchValueChanged];
 }
 
--(void)clearValue
+- (void)clearValue
 {
     self.selectedPair = nil;
     self.searchField.text = @"";
@@ -102,20 +91,20 @@
     [self.pickerView selectRow:0 inComponent:0 animated:NO];
 }
 
--(void)submitClicked
+- (void)submitClicked
 {
     if(!self.selectedPair)
         [self selectFirstElement];
     [self.delegate pickerViewController:self submitClicked:self.selectedPair];
 }
 
--(void)cancelClicked
+- (void)cancelClicked
 {
     self.selectedPair = nil;
     [self.delegate pickerViewControllerCancelClicked:self];
 }
 
--(void)searchValueChanged
+- (void)searchValueChanged
 {
     self.filteredOptions = [self.optionList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MagnetKeyValuePair *evaluatedObject, NSDictionary *bindings) {
         NSRange range = [[evaluatedObject valueForKey:self.keyNames.value] rangeOfString:self.searchField.text options:NSCaseInsensitiveSearch];
@@ -125,11 +114,13 @@
     [self.pickerView reloadAllComponents];
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
     return [self.filteredOptions count];
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
     return 1;
 }
 
@@ -138,28 +129,12 @@
     return [NSString stringWithFormat:@"%@", [[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
 }
 
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    if(row < self.filteredOptions.count)
-        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
+    if (row < self.filteredOptions.count)
+    {
+        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[row] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
+    }
 }
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
