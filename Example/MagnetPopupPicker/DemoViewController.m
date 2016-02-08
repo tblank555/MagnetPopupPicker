@@ -28,25 +28,15 @@
 
 @implementation DemoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.button = [[MagnetPopupPickerButton alloc] initWithFrame:CGRectMake(170, 50, 150, 30)];
     self.button.backgroundColor = [UIColor darkGrayColor];
     self.button.popoverColor = [UIColor darkGrayColor];
-    self.button.pickerController.showsCancelButton = YES;
-    self.button.pickerController.showsOKButton = YES;
+    self.button.pickerController.showsCancelButton = NO;
+    self.button.pickerController.showsOKButton = NO;
     [self.button setTitle:@"Select" forState:UIControlStateNormal];
     
     NSArray *list = [NSArray arrayWithObjects:[MagnetKeyValuePair keyValuePairWithKeyAndValue:@"test1" value:@"Q test"],
