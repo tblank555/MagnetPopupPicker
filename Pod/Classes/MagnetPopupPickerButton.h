@@ -9,32 +9,34 @@
 #import <UIKit/UIKit.h>
 #import "MagnetPickerViewController.h"
 
-@protocol PopupPickerButtonStateDelegate
+@protocol PopupPickerButtonStateDelegate;
 
-- (void)popupPickerButtonValueChanged:(id)sender;
+@interface MagnetPopupPickerButton : UIButton
 
-@end
+@property (nonatomic, assign) CGSize pickerSize;
+@property (nonatomic, strong) UIColor *popoverColor;
 
+/** Boolean value indicating whether to require the user to tap the OK button to confirm their selection. */
+@property (nonatomic, assign) BOOL usesOKButton;
 
-@interface MagnetPopupPickerButton : UIButton<UIPopoverControllerDelegate, MagnetPickerViewControllerDelegate>
-
-@property CGSize pickerSize;
-@property UIColor *popoverColor;
-@property MagnetPickerViewController *pickerController;
-@property MagnetKeyValuePair *selectedPair;
-
+@property (nonatomic, strong) MagnetPickerViewController *pickerController;
+@property (nonatomic, strong) MagnetKeyValuePair *selectedPair;
 @property (nonatomic, weak) id<PopupPickerButtonStateDelegate> stateDelegate;
 
 - (void)setOptions:(NSArray *)list keyNames:(MagnetKeyValuePair *)names;
 - (void)setSelectedValue:(NSString *)value;
 - (void)clearValue;
 
-/**
- Dismisses the popover if it's open.
- */
+/** Dismisses the popover if it's open. */
 - (void)dismissPopover;
 
 - (NSString *)selectedKey;
 - (id)selectedValue;
+
+@end
+
+@protocol PopupPickerButtonStateDelegate <NSObject>
+
+- (void)popupPickerButtonValueChanged:(MagnetPopupPickerButton *)popupPickerButton;
 
 @end
