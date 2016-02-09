@@ -75,7 +75,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     
     if (self.showsCancelButton)
     {
-        UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"X"]];
+        UISegmentedControl *cancelButton = [[UISegmentedControl alloc] initWithItems:@[ @"X" ]];
         cancelButton.frame = CGRectMake(MagnetPickerViewControllerMarginSize,
                                         MagnetPickerViewControllerMarginSize,
                                         MagnetPickerViewControllerCancelButtonWidth,
@@ -94,7 +94,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     
     if (self.showsOKButton)
     {
-        UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"OK"]];
+        UISegmentedControl *submitButton = [[UISegmentedControl alloc] initWithItems:@[ NSLocalizedString(@"OK", nil) ]];
         submitButton.momentary = YES;
         [submitButton addTarget:self
                          action:@selector(submitClicked)
@@ -166,6 +166,11 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
         return range.location == 0 || self.searchField.text.length < 1;
     }]];
     [self selectFirstElement];
+    if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
+    {
+        [self.delegate pickerViewController:self
+                             didChangeValue:self.selectedPair];
+    }
     [self.pickerView reloadAllComponents];
 }
 
@@ -175,7 +180,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 {
     if (self.filteredOptions.count > 0)
     {
-        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[0] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:0] valueForKey:self.keyNames.value]];
+        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[[self.filteredOptions firstObject] valueForKey:self.keyNames.key] value:[[self.filteredOptions firstObject] valueForKey:self.keyNames.value]];
     }
 }
 
@@ -208,7 +213,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [self.filteredOptions count];
+    return self.filteredOptions.count;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -225,7 +230,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 {
     if (row < self.filteredOptions.count)
     {
-        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[row] valueForKey:self.keyNames.key] value:[[self.filteredOptions objectAtIndex:row] valueForKey:self.keyNames.value]];
+        self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[self.filteredOptions[row] valueForKey:self.keyNames.key] value:[self.filteredOptions[row] valueForKey:self.keyNames.value]];
         
         if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
         {
