@@ -126,7 +126,6 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     self.searchField = searchField;
     [self.searchField reloadInputViews];
     
-    [self selectFirstElement];
     [self __loadPicker];
 }
 
@@ -167,11 +166,6 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
         return range.location != NSNotFound || self.searchField.text.length < 1;
     }]];
     [self selectFirstElement];
-    if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
-    {
-        [self.delegate pickerViewController:self
-                             didChangeValue:self.selectedPair];
-    }
     [self.pickerView reloadAllComponents];
 }
 
@@ -182,6 +176,12 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     if (self.filteredOptions.count > 0)
     {
         self.selectedPair = [[MagnetKeyValuePair alloc] initWithKeyValue:[[self.filteredOptions firstObject] valueForKey:self.keyNames.key] value:[[self.filteredOptions firstObject] valueForKey:self.keyNames.value]];
+        
+        if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
+        {
+            [self.delegate pickerViewController:self
+                                 didChangeValue:self.selectedPair];
+        }
     }
 }
 
@@ -196,8 +196,8 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 - (void)resetSearch
 {
     self.searchField.text = @"";
-    if (self.keyNames && self.searchField)
-        [self searchValueChanged];
+    self.filteredOptions = self.optionList;
+    [self.pickerView reloadAllComponents];
 }
 
 - (void)clearValue

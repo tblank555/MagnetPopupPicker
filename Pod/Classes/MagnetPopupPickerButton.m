@@ -81,8 +81,9 @@
     }
     
     self.pickerController.view.frame = CGRectMake(0, 0, self.pickerSize.width, self.pickerSize.height);
+    if (!self.pickerController.selectedPair)
+        [self.pickerController selectFirstElement];
     self.popover = [[MagnetPopoverView alloc] initWithContentView:self.pickerController.view];
-    [self.pickerController selectFirstElement];
     self.popover.backgroundColor = self.popoverColor;
     [self.popover showPopoverFromButton:self];
 }

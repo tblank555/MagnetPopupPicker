@@ -14,9 +14,13 @@
 
 @interface MagnetPickerViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, strong, readonly) MagnetKeyValuePair *keyNames;
 @property (nonatomic, strong) NSArray *optionList;
 @property (nonatomic, strong) NSArray *filteredOptions;
+
+@property (nonatomic, strong, readonly) MagnetKeyValuePair *keyNames;
+
+/** The currently selected key/value pair. */
+@property (nonatomic, strong, readonly) MagnetKeyValuePair *selectedPair;
 
 /** 
  Boolean value indicating whether to show the cancel button. 
