@@ -118,6 +118,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
     searchField.borderStyle = UITextBorderStyleRoundedRect;
     searchField.placeholder = NSLocalizedString(@"Search", nil);
     searchField.autocorrectionType = UITextAutocorrectionTypeNo;
+    searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [searchField addTarget:self
                     action:@selector(searchValueChanged)
           forControlEvents:UIControlEventEditingChanged];
