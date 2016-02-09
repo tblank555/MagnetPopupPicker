@@ -14,6 +14,7 @@
 @property UIGestureRecognizer *tapRecognizer;
 @property UIView *containerView;
 @property CGRect targetRect;
+@property (nonatomic, weak) UIView *popoverSuperview;
 
 @end
 
@@ -88,21 +89,25 @@
     [self drawArrow];
 }
 
-- (UIView *)rootView {
+- (UIView *)rootView
+{
     return [[[UIApplication sharedApplication] keyWindow] rootViewController].view;
 }
 
-- (void)setEvents {
-    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(dismissPopover)];
-    [[[[UIApplication sharedApplication] delegate] window] addGestureRecognizer:self.tapRecognizer];
+- (void)__addGestureRecognizer
+{
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                 action:@selector(dismissPopover)];
+    [self.popoverSuperview addGestureRecognizer:self.tapRecognizer];
 }
 
-- (void)dismissPopover {
+- (void)dismissPopover
+{
     [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
-        [[[[UIApplication sharedApplication] delegate] window] removeGestureRecognizer:self.tapRecognizer];
+        [self.popoverSuperview removeGestureRecognizer:self.tapRecognizer];
         self.alpha = 1;
     }];
 }
@@ -116,12 +121,13 @@
 {
     [self resetSize];
     self.targetRect = button.frame;
+    self.popoverSuperview = button.superview;
     CGPoint position = [self findPositionWithTarget];
     CGRect frame = CGRectMake(position.x, position.y, self.frame.size.width, self.frame.size.height);
     self.frame = frame;
     self.alpha = 0;
-    [button.superview addSubview:self];
-    [self setEvents];
+    [self.popoverSuperview addSubview:self];
+    [self __addGestureRecognizer];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationDelay:0.0];
