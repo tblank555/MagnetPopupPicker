@@ -164,7 +164,7 @@ static CGFloat const MagnetPickerViewControllerOKButtonWidth = 60.0;
 {
     self.filteredOptions = [self.optionList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MagnetKeyValuePair *evaluatedObject, NSDictionary *bindings) {
         NSRange range = [[evaluatedObject valueForKey:self.keyNames.value] rangeOfString:self.searchField.text options:NSCaseInsensitiveSearch];
-        return range.location == 0 || self.searchField.text.length < 1;
+        return range.location != NSNotFound || self.searchField.text.length < 1;
     }]];
     [self selectFirstElement];
     if ([self.delegate respondsToSelector:@selector(pickerViewController:didChangeValue:)])
